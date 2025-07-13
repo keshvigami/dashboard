@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alpine.js Professional Example</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="//unpkg.com/alpinejs"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto py-10 px-4">
+    <header class="mb-10 text-center">
+      <h1 class="text-4xl font-extrabold text-blue-700 mb-2">Alpine.js  Example</h1>
+      <!-- <p class="text-lg text-gray-600">A modern, interactive showcase of Alpine.js features with clean UI and best practices.</p> -->
+    </header>
+    <main x-data="main()" x-init="init()" class="space-y-10">
+      <!-- x-data -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-data</h2>
+        <p class="mb-2 text-gray-700">Initialize Alpine state on an element.</p>
+        <div class="flex items-center gap-4" x-data="{ count: 0 }">
+          <span class="text-lg">Count: <span x-text="count" class="font-bold"></span></span>
+          <button @click="count--" class="btn bg-red-500 hover:bg-red-600">Decrement</button>
+          <button @click="count++" class="btn">Increment</button>
+        </div>
+        <div class="code-block mt-4">&lt;div x-data="{ count: 0 }"&gt;<br>&nbsp;&nbsp;&lt;span x-text="count"&gt;&lt;/span&gt;<br>&nbsp;&nbsp;&lt;button @click="count--"&gt;Decrement&lt;/button&gt;<br>&nbsp;&nbsp;&lt;button @click="count++"&gt;Increment&lt;/button&gt;<br>&lt;/div&gt;</div>
+      </section>
+      <!-- x-text -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-text</h2>
+        <p class="mb-2 text-gray-700">Dynamically set text content.</p>
+        <div class="flex items-center gap-4">
+          <span x-text="title" class="text-xl font-semibold"></span>
+        </div>
+        <div class="code-block mt-4">&lt;span x-text="title"&gt;&lt;/span&gt;</div>
+      </section>
+      <!-- x-on -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-on</h2>
+        <p class="mb-2 text-gray-700">Attach event listeners to elements.</p>
+        <button @click="toggleOpen" class="btn">Toggle Section</button>
+        <div class="code-block mt-4">&lt;button @click="toggleOpen"&gt;Toggle Section&lt;/button&gt;</div>
+      </section>
+      <!-- x-show, x-cloak, x-transition -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-show, x-cloak, x-transition</h2>
+        <p class="mb-2 text-gray-700">Show/hide with transitions and prevent FOUC.</p>
+        <div x-show="isOpen" x-cloak x-transition class="p-4 bg-green-100 rounded mb-2">
+          This section is visible when <code>isOpen</code> is true.
+        </div>
+        <div class="code-block mt-4">&lt;div x-show="isOpen" x-cloak x-transition&gt;...&lt;/div&gt;</div>
+      </section>
+      <!-- x-if -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-if</h2>
+        <p class="mb-2 text-gray-700">Conditionally render elements in the DOM.</p>
+        <template x-if="isOpen">
+          <p class="text-green-700">This is conditionally rendered with <code>x-if</code>.</p>
+        </template>
+        <div class="code-block mt-4">&lt;template x-if="isOpen"&gt;...&lt;/template&gt;</div>
+      </section>
+      <!-- x-bind -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-bind</h2>
+        <p class="mb-2 text-gray-700">Dynamically bind attributes.</p>
+        <button :class="isOpen ? 'bg-red-500' : 'bg-green-500'" class="px-4 py-2 text-white rounded">Dynamic Button Color</button>
+        <div class="code-block mt-4">&lt;button :class="isOpen ? 'bg-red-500' : 'bg-green-500'"&gt;...&lt;/button&gt;</div>
+      </section>
+      <!-- x-html -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-html</h2>
+        <p class="mb-2 text-gray-700">Render raw HTML content.</p>
+        <div x-html="htmlContent"></div>
+        <div class="code-block mt-4">&lt;div x-html="htmlContent"&gt;&lt;/div&gt;</div>
+      </section>
+      <!-- x-for -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-for</h2>
+        <p class="mb-2 text-gray-700">Loop over arrays or objects.</p>
+        <ul class="list-disc pl-6">
+          <template x-for="item in items" :key="item">
+            <li x-text="item"></li>
+          </template>
+        </ul>
+        <div class="code-block mt-4">&lt;template x-for="item in items" :key="item"&gt;&lt;li x-text="item"&gt;&lt;/li&gt;&lt;/template&gt;</div>
+      </section>
+      <!-- x-model -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-model</h2>
+        <p class="mb-2 text-gray-700">Two-way data binding for form elements.</p>
+        <input x-model="inputValue" type="text" placeholder="Type something..." class="input">
+        <p class="mt-2">Input: <span x-text="inputValue"></span></p>
+        <div class="code-block mt-4">&lt;input x-model="inputValue" ... &gt;</div>
+      </section>
+      <!-- x-effect -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-effect</h2>
+        <p class="mb-2 text-gray-700">Run code when dependencies change.</p>
+        <p x-effect="console.log('Input changed to:', inputValue)">Check console for x-effect</p>
+        <div class="code-block mt-4">&lt;p x-effect="console.log('Input changed to:', inputValue)"&gt;...&lt;/p&gt;</div>
+      </section>
+      <!-- x-ignore -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-ignore</h2>
+        <p class="mb-2 text-gray-700">Ignore a subtree from Alpine reactivity.</p>
+        <div x-ignore>
+          <p>This block is ignored by Alpine’s reactivity.</p>
+        </div>
+        <div class="code-block mt-4">&lt;div x-ignore&gt;...&lt;/div&gt;</div>
+      </section>
+      <!-- x-ref + $refs -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-ref + $refs</h2>
+        <p class="mb-2 text-gray-700">Reference elements and access them in JS.</p>
+        <input x-ref="myInput" type="text" placeholder="Click button to focus me" class="input">
+        <button @click="$refs.myInput.focus()" class="btn">Focus Input</button>
+        <div class="code-block mt-4">&lt;input x-ref="myInput" ... &gt;<br>&lt;button @click="$refs.myInput.focus()"&gt;...&lt;/button&gt;</div>
+      </section>
+      <!-- x-teleport -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-teleport</h2>
+        <p class="mb-2 text-gray-700">Teleport content to another part of the DOM.</p>
+        <div x-data="{ open: false }">
+          <button @click="open = !open" class="btn">Toggle Teleport</button>
+          <template x-teleport="body">
+            <div x-show="open" class="fixed top-10 left-1/2 transform -translate-x-1/2 bg-white border p-4 rounded shadow">
+              Teleported content!
+            </div>
+          </template>
+        </div>
+        <div class="code-block mt-4">&lt;template x-teleport="body"&gt;...&lt;/template&gt;</div>
+      </section>
+      <!-- x-id -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-id</h2>
+        <p class="mb-2 text-gray-700">Generate unique IDs for accessibility.</p>
+        <div x-id="['input']">
+          <label :for="$id('input')" class="block">Label with x-id:</label>
+          <input :id="$id('input')" type="text" class="input">
+        </div>
+        <div class="code-block mt-4">&lt;div x-id="['input']"&gt;...&lt;/div&gt;</div>
+      </section>
+      <!-- Alpine Store -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">Alpine Store</h2>
+        <p class="mb-2 text-gray-700">Global reactive state with Alpine.store.</p>
+        <div>
+          <p>Counter: <span x-text="$store.counter.count"></span></p>
+          <button @click="$store.counter.increment()" class="btn">Increment Counter</button>
+        </div>
+        <div class="code-block mt-4">Alpine.store('counter', { count: 0, increment() { this.count++ } })</div>
+      </section>
+      <!-- Async example -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">Async Example</h2>
+        <p class="mb-2 text-gray-700">Fetch data asynchronously and update state.</p>
+        <div>
+          <button @click="fetchData()" class="btn">Fetch Data</button>
+          <p x-text="fetchedData"></p>
+        </div>
+        <div class="code-block mt-4">async fetchData() { ... }</div>
+      </section>
+      <!-- $watch -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">$watch</h2>
+        <p class="mb-2 text-gray-700">Watch data changes and react.</p>
+        <p>Watching <code>inputValue</code>: check console!</p>
+        <div class="code-block mt-4">this.$watch('inputValue', value =&gt; ...)</div>
+      </section>
+      <!-- $dispatch -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">$dispatch</h2>
+        <p class="mb-2 text-gray-700">Dispatch custom events.</p>
+        <div x-data="{ open: false }" @custom-event.window="open = $event.detail" class="space-y-2">
+          <button @click="$dispatch('custom-event', true)" class="btn">Dispatch Event</button>
+          <div x-show="open" class="p-4 bg-blue-100 rounded">Event received! Open = true</div>
+        </div>
+        <div class="code-block mt-4">$dispatch('custom-event', true)</div>
+      </section>
+      <!-- $el, $data, $root -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">$el, $data, $root</h2>
+        <p class="mb-2 text-gray-700">Access element, data, and root references.</p>
+        <div x-data="{ name: 'Alpine' }">
+          <button @click="console.log($el, $data, $root)" class="btn">Log $el, $data, $root</button>
+        </div>
+        <div class="code-block mt-4">console.log($el, $data, $root)</div>
+      </section>
+      <!-- Nested x-data -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">Nested x-data</h2>
+        <p class="mb-2 text-gray-700">You can nest Alpine components for isolated state.</p>
+        <div x-data="{ outer: 1 }" class="mb-2">
+          <span class="mr-2">Outer: <span x-text="outer"></span></span>
+          <button class="btn" @click="outer++">Outer +</button>
+          <div x-data="{ inner: 10 }" class="mt-2 ml-4">
+            <span class="mr-2">Inner: <span x-text="inner"></span></span>
+            <button class="btn" @click="inner++">Inner +</button>
+          </div>
+        </div>
+        <div class="code-block mt-4">&lt;div x-data="{ outer: 1 }"&gt;<br>&nbsp;&nbsp;...<br>&nbsp;&nbsp;&lt;div x-data="{ inner: 10 }"&gt;...&lt;/div&gt;<br>&lt;/div&gt;</div>
+      </section>
+      <!-- Computed property -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">Computed Property</h2>
+        <p class="mb-2 text-gray-700">Use a getter for computed values.</p>
+        <div x-data="{ a: 2, b: 3, get sum() { return this.a + this.b } }" class="flex gap-4 items-center">
+          <input type="number" x-model.number="a" class="input w-20"> +
+          <input type="number" x-model.number="b" class="input w-20"> =
+          <span class="font-bold" x-text="sum"></span>
+        </div>
+        <div class="code-block mt-4">&lt;div x-data="{ a: 2, b: 3, get sum() { return this.a + this.b } }"&gt;...&lt;/div&gt;</div>
+      </section>
+      <!-- x-init with async -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-init (Async)</h2>
+        <p class="mb-2 text-gray-700">Run async code on component init.</p>
+        <div x-data="{ joke: '', async getJoke() { const r = await fetch('https://api.chucknorris.io/jokes/random'); this.joke = (await r.json()).value } }" x-init="getJoke()">
+          <span x-text="joke"></span>
+          <button class="btn ml-2" @click="getJoke()">New Joke</button>
+        </div>
+        <div class="code-block mt-4">x-init="getJoke()" (async function)</div>
+      </section>
+      <!-- x-transition custom -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-transition (Custom)</h2>
+        <p class="mb-2 text-gray-700">Custom transition classes for animation.</p>
+        <div x-data="{ show: false }">
+          <button class="btn" @click="show = !show">Toggle Fade</button>
+          <div x-show="show" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-75" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-75" class="mt-2 p-4 bg-indigo-100 rounded shadow">
+            Custom fade & scale transition!
+          </div>
+        </div>
+        <div class="code-block mt-4">x-transition:enter/leave with custom classes</div>
+      </section>
+      <!-- x-for with objects -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-for (Objects)</h2>
+        <p class="mb-2 text-gray-700">Loop over an array of objects.</p>
+        <ul class="list-disc pl-6" x-data="{ users: [ {id:1, name:'Alice'}, {id:2, name:'Bob'} ] }">
+          <template x-for="user in users" :key="user.id">
+            <li><span class="font-bold" x-text="user.name"></span> (ID: <span x-text="user.id"></span>)</li>
+          </template>
+        </ul>
+        <div class="code-block mt-4">x-for="user in users" :key="user.id"</div>
+      </section>
+      <!-- x-model with checkbox/radio/select -->
+      <section class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">x-model (Checkbox, Radio, Select)</h2>
+        <p class="mb-2 text-gray-700">Bind to checkboxes, radios, and selects.</p>
+        <div x-data="{ checked: false, picked: '', selected: '' }" class="space-y-2">
+          <label class="flex items-center gap-2">
+            <input type="checkbox" x-model="checked"> Checkbox (<span x-text="checked"></span>)
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="radio" value="A" x-model="picked"> A
+            <input type="radio" value="B" x-model="picked"> B
+            <span>Picked: <span x-text="picked"></span></span>
+          </label>
+          <label class="flex items-center gap-2">
+            <select x-model="selected" class="input">
+              <option value="">Select...</option>
+              <option value="One">One</option>
+              <option value="Two">Two</option>
+            </select>
+            <span>Selected: <span x-text="selected"></span></span>
+          </label>
+        </div>
+        <div class="code-block mt-4">x-model with checkbox, radio, select</div>
+      </section>
+    </main>
+    <footer class="mt-12 text-center text-gray-400 text-sm">
+      &copy; 2025 Alpine.js Professional Example. All rights reserved.
+    </footer>
+  </div>
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('counter', {
+        count: 0,
+        increment() { this.count++ }
+      })
+    })
+    function main() {
+      return {
+        title: '📚 Full Alpine.js Example',
+        isOpen: false,
+        htmlContent: '<strong>This is HTML content rendered with x-html</strong>',
+        items: ['Apple', 'Banana', 'Cherry'],
+        inputValue: '',
+        fetchedData: '',
+        toggleOpen() {
+          this.isOpen = !this.isOpen;
+        },
+        init() {
+          this.$watch('inputValue', value => {
+            console.log('Watched value:', value)
+          })
+        },
+        async fetchData() {
+          this.fetchedData = 'Loading...';
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          this.fetchedData = 'Async data loaded!';
+        }
+      }
+    }
+  </script>
+</body>
+</html>
